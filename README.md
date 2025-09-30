@@ -9,15 +9,11 @@ This is framed as a **binary classification problem**:
 - **0 = On-Time**  
 - **1 = Delayed**  
 
----
-
 ## Introduction
 
 By identifying patterns that signal potential delays, stakeholders could proactively manage risks, optimize logistics planning, and minimize disruptions. My investigation applies machine learning methods to a simulated trade monitoring dataset representing 10,000 China–Africa shipment transactions.
 
 The overarching goal is to understand whether **logistics and financial features alone** can predict shipment delays—or whether other hidden factors (e.g., weather, port congestion, inspections) are more decisive.
-
----
 
 ## Understanding the Data
 
@@ -36,7 +32,6 @@ The dataset is from Kaggle:
 - **Delayed:** ~21%  
 - → Dataset is **imbalanced**, which complicates model performance.
 
----
 
 ## Data Preparation
 
@@ -46,8 +41,6 @@ The dataset is from Kaggle:
 3. **Feature Selection:** Dropped identifiers (`shipment_id`), redundant labels (`delay_status`), and anomaly flags.  
 4. **Categorical Encoding:** Applied one-hot encoding with `drop_first=True`. Expanded from **14 to 33 features**.  
 5. **Train/Test Split:** 70% train, 30% test (stratified to preserve class balance).  
-
----
 
 ## Exploratory Analysis
 
@@ -68,8 +61,6 @@ The dataset shows a **3.81:1 ratio** of on-time to delayed shipments.
 ### Price Volatility
 - Delayed shipments show slightly higher volatility on average, suggesting some correlation.  
 
----
-
 ## Modeling Approach
 
 ### Algorithm: Random Forest Classifier
@@ -79,7 +70,7 @@ Random Forest was selected for its ability to:
 - Manage class imbalance via `class_weight='balanced'`  
 - Provide **feature importance metrics**  
 
-```python
+python
 from sklearn.ensemble import RandomForestClassifier
 
 model = RandomForestClassifier(
@@ -90,9 +81,6 @@ model = RandomForestClassifier(
     min_samples_leaf=5,
     class_weight='balanced'
 )
-```
-
----
 
 ## Evaluation
 
@@ -115,8 +103,6 @@ model = RandomForestClassifier(
 **Takeaway:**  
 Despite high accuracy, the model **missed 98% of delays**. The imbalance caused accuracy to be misleading.
 
----
-
 ## Interpretation
 
 ### Insights
@@ -131,8 +117,6 @@ Despite high accuracy, the model **missed 98% of delays**. The imbalance caused 
 
 These missing features likely explain the model’s weak recall.
 
----
-
 ## Conclusion and Takeaways
 
 **Key Finding:** Current dataset features are inadequate for predicting shipment delays.  
@@ -141,8 +125,6 @@ These missing features likely explain the model’s weak recall.
 - **ROC-AUC of 0.52** is close to random guessing.  
 
 **Takeaway:** Shipment delays require **contextual external data sources** (e.g., real-time weather, port congestion) for meaningful prediction.
-
----
 
 ## Impact
 
@@ -158,15 +140,11 @@ These missing features likely explain the model’s weak recall.
 3. **Overreliance:** Machine learning solutions might overshadow human expertise.  
 4. **Dataset Limits:** Simulated nature reduces real-world reliability.  
 
----
-
 ## Ethical Considerations
 - **Transparency:** Clearly communicate model limitations.  
 - **Accountability:** Define responsibility when predictions fail.  
 - **Equity:** Ensure small businesses are not disadvantaged.  
 - **Autonomy:** Keep humans in the decision loop.  
-
----
 
 ## References
 1) Kaggle. (2024). *China-Africa Trade Monitoring Dataset*. Retrieved from [Kaggle](https://www.kaggle.com/datasets/ziya07/chinaafrica-trade-monitoring-dataset)  
@@ -177,7 +155,4 @@ These missing features likely explain the model’s weak recall.
 6) McKinney, W. (2023). *pandas: Python Data Analysis Library*. Retrieved from [pandas.pydata.org](https://pandas.pydata.org/)  
 7) Hunter, J. D. (2007). *Matplotlib: A 2D graphics environment*. Computing in Sci & Eng, 9(3), 90-95.  
 8) Waskom, M. L. (2021). *seaborn: statistical data visualization*. JOSS, 6(60), 3021.  
-
----
-
 *Generative AI (Claude Sonnet 4.5) was leveraged when learning to implement classification algorithms and optimize code for this project.*
